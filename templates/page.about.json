@@ -4,9 +4,9 @@
       "type": "main-page",
       "disabled": true,
       "settings": {
+        "content": "La historia de mi vida",
         "padding_top": 28,
-        "padding_bottom": 28,
-        "content": "La historia de mi vida"
+        "padding_bottom": 28
       }
     },
     "history": {
@@ -14,7 +14,6 @@
       "settings": {
         "image-alignation": "left",
         "background": "#FFFFFF",
-
         "title": "I'm batman",
         "history": "\nBatman era un gato negro con una máscara blanca que le cubría los ojos. Le gustaba salir de noche y patrullar las calles de su ciudad, buscando a los malhechores que atormentaban a los inocentes. Tenía un sentido de la justicia muy fuerte, pero también un carácter rebelde y travieso. A veces, se metía en problemas por hacer cosas que no debía, como robar comida, arañar muebles o asustar a otros animales.\n\nUna noche, Batman se encontró con una banda de ratas que estaban asaltando a una anciana que volvía a su casa. Batman no lo dudó y se lanzó sobre las ratas, usando sus garras y sus dientes para hacerlas huir. La anciana, agradecida, le acarició la cabeza y le dio un trozo de queso. Batman se sintió orgulloso de su hazaña y se comió el queso con gusto.\n\nPero al día siguiente, Batman se enteró de que la anciana había sido denunciada por sus vecinos por tener un gato callejero en su casa. Los vecinos decían que el gato era un peligro para la salud y la seguridad, y que debía ser capturado y llevado a la perrera. Batman se sintió culpable por haber causado problemas a la anciana, y decidió ir a su rescate.\n\nBatman se coló en la casa de la anciana y la encontró llorando en su sofá. La anciana se sorprendió al verlo y le dijo que se fuera, que no quería que le hicieran daño. Batman le hizo un gesto con la cabeza para que lo siguiera y la llevó hasta la ventana. Allí, le mostró un cartel que había hecho con un trozo de cartón y un rotulador. El cartel decía: \"Este gato es un héroe, no un villano. Déjenlo en paz\".\n\nLa anciana sonrió al ver el cartel y abrazó a Batman. Luego, lo colocó en la ventana para que lo vieran los vecinos. Algunos de ellos se quedaron boquiabiertos, otros se rieron y otros se enfadaron. Pero nadie se atrevió a molestar más a la anciana ni a su gato.\n\nBatman se quedó con la anciana y se convirtió en su fiel compañero. Seguía saliendo de noche a defender a la gente, pero también se portaba bien en casa y le hacía compañía a la anciana. Batman había encontrado un hogar y una familia, y era feliz."
       }

@@ -1,23 +1,27 @@
 {
-    "sections": {
-        "baner": {
-            "type": "main-collection-banner",
-            "settings": {
-                "show_collection_description": true,
-                "show_collection_image": true,
-                "color_scheme": "scheme-1"
-            }
-        },
-        "product-grid": {
-            "type": "main-collection-product-grid"
-        },
-        "hold-on-banner": {
-            "type": "black-friday-footer-benner.liquid"
-        }
+  "sections": {
+    "baner": {
+      "type": "main-collection-banner",
+      "settings": {
+        "show_collection_description": true,
+        "show_collection_image": true,
+        "color_scheme": "scheme-1"
+      }
     },
-    "order": [
-        "baner",
-        "product-grid",
-        "hold-on-banner"
-    ]
+    "product-grid": {
+      "type": "main-collection-product-grid",
+      "settings": {
+      }
+    },
+    "hold-on-banner": {
+      "type": "black-friday-footer-benner",
+      "settings": {
+      }
+    }
+  },
+  "order": [
+    "baner",
+    "product-grid",
+    "hold-on-banner"
+  ]
 }
