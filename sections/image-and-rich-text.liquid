@@ -1,0 +1,130 @@
+<style>
+    body {
+      background-color: {{section.settings.background }} !important;
+  }
+
+    .flex {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .center {
+      justify-content: center;
+    }
+
+    .w-30 {
+      width: 50%;
+    }
+
+    .title {
+      font-weight: 600;
+      font-size: 3.5em;
+    }
+
+    .gap-5 {
+      gap: 2.5em;
+    }
+
+    #main-image {
+      min-width: 30%;
+      border-radius: 5%;
+      object-fit: cover;
+    }
+    #main-container {
+      width: 80%;
+      text-align: left;
+      margin-top: 3em;
+    }
+
+    .reverse {
+      flex-direction: row-reverse;
+    }
+</style>
+
+<img
+  id="cat"
+  style="position:absolute;height:4.5em;top:10000px;"
+  src="https://p7.hiclipart.com/preview/632/720/920/whiskers-black-cat-kitten-sticker-cat.jpg"
+>
+<div class="flex center">
+  <div
+    id="main-container"
+    class="flex gap-5 {% if section.settings['image-alignation']!="left" %}reverse{% endif %} "
+  >
+    {% render 'rounded-image' %}
+    <div>
+      <h1 class="title">{{ section.settings.title }}</h1>
+      <p>
+        {{ section.settings.history }}
+      </p>
+    </div>
+  </div>
+</div>
+
+<script defer>
+  // Get the cat emoji element
+  var cat = document.getElementById('cat');
+  console.log('adding');
+  // Add a mousemove event listener to the document
+  document.addEventListener('mousemove', function (event) {
+    console.log('moving');
+
+    // Get the mouse position relative to the document
+    var mouseX = event.pageX;
+    var mouseY = event.pageY;
+
+    // Set the cat emoji position to the mouse position
+    cat.style.left = mouseX + 'px';
+    cat.style.top = mouseY + 'px';
+  });
+</script>
+
+{% schema %}
+{
+  "name": "image and rich text",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "select",
+      "id": "image-alignation",
+      "label": "Image alignement",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "Right",
+          "label": "right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background color",
+      "default": "#000000"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Enjoy life123"
+    },
+    {
+      "type": "text",
+      "id": "history",
+      "label": "Description",
+      "default": "Best things happen sometime"
+    },
+    {
+      "type": "text",
+      "id": "image",
+      "label": "Image link",
+      "default": "https://www.revistagente.com/wp-content/uploads/2022/10/unknown_284636771_171648768650612_8901561439735887990_n.jpg.webp"
+    }
+  ]
+}
+{% endschema %}
