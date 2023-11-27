@@ -141,11 +141,19 @@
             "text_style": "caption-with-letter-spacing",
             "text_size": "large"
           }
+        },
+        "24dc2577-a218-486b-b91c-c8a2d9380b96": {
+          "type": "text",
+          "settings": {
+            "text": "<p>This products package size is as big as your mom:<\/p><p>{{ product.metafields.custom.package_volume | metafield_tag }}<\/p>",
+            "text_style": "body"
+          }
         }
       },
       "block_order": [
         "image-with-text-0",
-        "33b94302-08db-4605-b934-a6544a2cdc4c"
+        "33b94302-08db-4605-b934-a6544a2cdc4c",
+        "24dc2577-a218-486b-b91c-c8a2d9380b96"
       ],
       "settings": {
         "height": "small",
