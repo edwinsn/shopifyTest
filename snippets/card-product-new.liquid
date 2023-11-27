@@ -1,0 +1,82 @@
+<a
+  href="{{ card_product.url }}"
+  id="StandardCardNoMediaLink-{{ section_id }}-{{ card_product.id }}"
+  class="full-unstyled-link  product-card"
+  aria-labelledby="StandardCardNoMediaLink-{{ section_id }}-{{ card_product.id }} NoMediaStandardBadge-{{ section_id }}-{{ card_product.id }}"
+>
+  <div
+    style="overflow:hidden;"
+  >
+    <img
+      srcset="
+        {%- if card_product.media[1].width >= 165 -%}{{ card_product.media[1] | image_url: width: 165 }} 165w,{%- endif -%}
+        {%- if card_product.media[1].width >= 360 -%}{{ card_product.media[1] | image_url: width: 360 }} 360w,{%- endif -%}
+        {%- if card_product.media[1].width >= 533 -%}{{ card_product.media[1] | image_url: width: 533 }} 533w,{%- endif -%}
+        {%- if card_product.media[1].width >= 720 -%}{{ card_product.media[1] | image_url: width: 720 }} 720w,{%- endif -%}
+        {%- if card_product.media[1].width >= 940 -%}{{ card_product.media[1] | image_url: width: 940 }} 940w,{%- endif -%}
+        {%- if card_product.media[1].width >= 1066 -%}{{ card_product.media[1] | image_url: width: 1066 }} 1066w,{%- endif -%}
+        {{ card_product.media[1] | image_url }} {{ card_product.media[1].width }}w
+      "
+      src="{{ card_product.media[1] | image_url: width: 533 }}"
+      sizes="(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 130 | divided_by: 4 }}px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
+      alt=""
+      class="motion-reduce"
+      loading="lazy"
+      width="{{ card_product.media[1].width }}"
+      height="{{ card_product.media[1].height }}"
+    >
+    {% assign total_inventory = 0 %}
+    {% for variant in card_product.variants %}
+      {% assign total_inventory = total_inventory | plus: variant.inventory_quantity %}
+    {% endfor %}
+
+    <div style="height:5em;display:flex;align-items:center;justify-content:space-between">
+      {{ card_product.title }}
+      {% if total_inventory < 5 %}
+        <div id="last-item-tag">Last items</div>
+      {% endif %}
+    </div>
+    <div>
+      {{ card_product.price | money_with_currency }}
+    </div>
+
+    <div>
+      {%- for product in card_product.options_with_values -%}
+        <div>
+          {% if product.name == 'Color' %}
+            {%- for value in product.values -%}
+              {% render 'color', color: value %}
+            {%- endfor %}
+          {% endif %}
+          {% if product.name == 'Size' %}
+            <div>Tallas</div>
+            <div style="display:flex;">
+              {%- for value in product.values -%}
+                {% render 'talla', talla: value %}
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+      {%- endfor %}
+    </div>
+  </div>
+</a>
+<style>
+  #last-item-tag {
+    padding: 5px 10px;
+    color: red;
+    border: 2px solid red;
+    border-radius: 5px;
+    width: 7em;
+    text-align: center;
+    margin-bottom: 10px;
+    margin: 0 30px 0 0;
+  }
+  .shadow {
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  }
+
+  .product-card {
+    border-radius: 30px;
+  }
+</style>

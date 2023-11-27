@@ -1,0 +1,26 @@
+<div style="position:relative;display:flex;justify-content:center;">
+  <div
+    style="background-color:rgba(0, 0, 0, 0.35);padding:30px;position:absolute;color: white;font-weight:900;font-size:5em;"
+    class="scroll-trigger animate--fade-in"
+  >
+    Hurry! we won't hold <br>
+    this sales for much.
+  </div>
+  <img
+    style="width:70%;"
+    src="https://vendeyavendebien.myshopify.com/cdn/shop/files/back_banner.jpg?v=1700841336&width=1500"
+  >
+  {% comment %} {{ section.settings.image | image_url: width: 1500 | image_tag }} {% endcomment %}
+</div>
+{% schema %}
+{
+  "name": "black-friday-footer",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    }
+  ]
+}
+{% endschema %}

@@ -110,13 +110,9 @@
       ],
       "settings": {
         "enable_sticky_info": true,
-        "color_scheme": "",
         "media_size": "large",
         "constrain_to_viewport": true,
-        "media_fit": "contain",
         "gallery_layout": "stacked",
-        "media_position": "left",
-        "image_zoom": "lightbox",
         "mobile_thumbnails": "hide",
         "hide_variants": true,
         "enable_video_looping": false,
@@ -130,30 +126,21 @@
         "image-with-text-0": {
           "type": "heading",
           "settings": {
-            "heading": "Coolness",
+            "heading": "Image with text",
             "heading_size": "h1"
           }
         },
-        "33b94302-08db-4605-b934-a6544a2cdc4c": {
-          "type": "caption",
-          "settings": {
-            "caption": "This product has a coolness of:{{ product.metafields.custom.coolness.value }}",
-            "text_style": "caption-with-letter-spacing",
-            "text_size": "large"
-          }
-        },
-        "24dc2577-a218-486b-b91c-c8a2d9380b96": {
+        "image-with-text-1": {
           "type": "text",
           "settings": {
-            "text": "<p>This products package size is as big as your mom:<\/p><p>{{ product.metafields.custom.package_volume | metafield_tag }}<\/p>",
+            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.<\/p>",
             "text_style": "body"
           }
         }
       },
       "block_order": [
         "image-with-text-0",
-        "33b94302-08db-4605-b934-a6544a2cdc4c",
-        "24dc2577-a218-486b-b91c-c8a2d9380b96"
+        "image-with-text-1"
       ],
       "settings": {
         "height": "small",
@@ -162,9 +149,7 @@
         "desktop_content_position": "top",
         "desktop_content_alignment": "left",
         "content_layout": "no-overlap",
-        "section_color_scheme": "",
         "color_scheme": "scheme-2",
-        "image_behavior": "none",
         "mobile_content_alignment": "left",
         "padding_top": 36,
         "padding_bottom": 36
@@ -218,11 +203,9 @@
       "settings": {
         "heading": "You may also like",
         "heading_size": "h2",
-        "products_to_show": 4,
         "columns_desktop": 4,
         "color_scheme": "scheme-1",
         "image_ratio": "square",
-        "image_shape": "default",
         "show_secondary_image": true,
         "show_vendor": false,
         "show_rating": false,
