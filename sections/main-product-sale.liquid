@@ -1,0 +1,40 @@
+<div id="main">
+  <h1 id="product_title">{{ product.title }}</h1>
+  <div class="flex gap-5 center">
+    <div id="product-carrousel-container">
+      {% render 'product-carrousel' %}
+    </div>
+    <div id="product-details-container">
+      {% render 'product-details' %}
+    </div>
+  </div>
+</div>
+<style>
+  .flex {
+    display: flex;
+  }
+
+  .center {
+    justify-content: center;
+  }
+
+  #product-container {
+    width: 100vw;
+  }
+
+  #product-carrousel-container {
+    flex-basis: 50%;
+    overflow: hidden;
+  }
+
+  #product-details-container {
+    flex-basis: 38%;
+  }
+</style>
+{% schema %}
+{
+  "name": "Main Product Sale",
+  "class": "section",
+  "settings": []
+}
+{% endschema %}

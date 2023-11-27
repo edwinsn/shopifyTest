@@ -1,0 +1,65 @@
+<script defer src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
+
+<section>
+  <div class="splide" aria-label="Splide Basic HTML Example">
+    <div class="splide__track">
+      <ul class="splide__list">
+        {% for image in product.media %}
+          <li class="splide__slide">
+            <img
+              class="product-image"
+              src="{{ image | image_url: width: 533 }}"
+              alt=""
+              class="motion-reduce"
+              loading="lazy"
+              width="{{ image.width }}"
+              height="{{ image.height }}"
+            >
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  <ul class="flex">
+    {% for image in product.media %}
+      <li class="splide__slide">
+        <img
+          class="product-image-thumbnail"
+          src="{{ image | image_url: width: 533 }}"
+          alt=""
+          class="motion-reduce"
+          loading="lazy"
+          width="{{ 80 }}"
+          height="{{ 80 }}"
+          onclick="moveCarrrousel({{ forloop.index }})"
+          style="border: 1px solid black;"
+        >
+      </li>
+    {% endfor %}
+  </ul>
+</section>
+<style type="text/css">
+  .product-image {
+    width: 100%;
+  }
+  .splide__slide {
+    display: flex;
+    align-items: center;
+  }
+  .product-image-thumbnail {
+    margin: 10px;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var splide = new Splide('.splide');
+
+    splide.mount();
+
+    window.moveCarrrousel = function (x) {
+      splide.go(x - 1);
+    };
+  });
+</script>

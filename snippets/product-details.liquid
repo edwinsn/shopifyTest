@@ -1,0 +1,135 @@
+<form
+  method="post"
+  action="/cart/add"
+  id="product-info-container"
+  style="text-align: left;"
+>
+  <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+  <div class="flex gap-5">
+    <h2 id="price" class="">
+      {{ product.price | money }}
+    </h2>
+    <h2 class="prodct-original-price">
+      {{ product.price_max | times: 1.1 | money }}
+    </h2>
+  </div>
+  <div>
+    <div>Color</div>
+
+    <div class="flex gap-5">
+      {%- for product in product.options_with_values -%}
+        {% if product.name == 'Color' %}
+          {% assign defaultColor = product.values[0] %}
+          {%- for value in product.values -%}
+            {% render 'color', color: value, defaultColor: defaultColor %}
+          {%- endfor %}
+        {% endif %}
+      {%- endfor %}
+    </div>
+
+    <div>Size</div>
+    <select
+      class="size-selector"
+      id="product-size-selector"
+    >
+      {%- for product in product.options_with_values -%}
+        {% if product.name == 'Size' %}
+          {% assign defaultSize = product.values[0] %}
+          {%- for value in product.values -%}
+            <option>
+              {{ value }}
+            </option>
+          {%- endfor %}
+        {% endif %}
+      {%- endfor %}
+    </select>
+  </div>
+  <div class="flex my-5 gap-3">
+    <div>
+      Size:<span id="selected-size" class="black" style="margin:0 0 0 5px;">{{ defaultSize }}</span>
+    </div>
+    <div>
+      Color:<span id="selected-color" class="black" style="margin:0 0 0 5px;">{{ defaultColor }}</span>
+    </div>
+  </div>
+  <div>Share:</div>
+  <input min="1" type="number" id="quantity" name="quantity" value="1">
+  <input id="add-product-to-cart" type="submit" value="Add to cart" class="btn">
+</form>
+<style>
+  #price {
+    color: red;
+    font-weight: 900;
+  }
+
+  #add-product-to-cart {
+    padding: 10px 20px;
+    color: white;
+    background: green;
+    margin: 20px 0px;
+  }
+
+  .gap-5 {
+    gap: 20px;
+  }
+  .gap-3 {
+    gap: 10px;
+  }
+
+  .prodct-original-price {
+    text-decoration-line: line-through;
+  }
+
+  .size-selector {
+    padding: 10px;
+    width: 150px;
+  }
+
+  .my-5 {
+    margin: 20px 0;
+  }
+</style>
+<style>
+  input[type='radio'] {
+    display: none;
+  }
+
+  .circle {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  }
+
+  .red {
+    background-color: red;
+  }
+
+  .blue {
+    background-color: blue;
+  }
+
+  .black {
+    color: black;
+  }
+
+  input[type='radio']:checked + .circle {
+    border: 3px solid black;
+  }
+</style>
+<script>
+  selecSize = function (Size) {
+    var span = document.getElementById('selected-size');
+    span.innerHTML = Size;
+  };
+
+  window.selecColor = function (color) {
+    var span = document.getElementById('selected-color');
+    span.innerHTML = color;
+  };
+
+  document.getElementById('product-size-selector').addEventListener('change', function () {
+    var selectedOption = this.value;
+    selecSize(selectedOption);
+  });
+</script>

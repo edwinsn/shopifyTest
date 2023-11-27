@@ -1,1 +1,12 @@
-<div style="aspect-ratio:1;width:40px;border-radius:50%;background-color:{{color }};"> </div>
+<label
+  onclick="selecColor('{{ color }}')"
+>
+  <input
+    type="radio"
+    {% if color == defaultColor %}
+      checked
+    {% endif %}
+    name="circle"
+  >
+  <span class="circle" style="background-color:{{color }};"></span>
+</label>
