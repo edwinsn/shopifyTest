@@ -139,7 +139,7 @@
           "settings": {
             "caption": "This product has a coolness of:{{ product.metafields.custom.coolness.value }}",
             "text_style": "caption-with-letter-spacing",
-            "text_size": "medium"
+            "text_size": "large"
           }
         }
       },
