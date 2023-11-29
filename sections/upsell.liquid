@@ -1,0 +1,44 @@
+<h1>You may also like:</h1>
+<ul
+  id="product-grid"
+  data-id="{{ section.id }}"
+  class="
+    grid product-grid grid--{{ section.settings.columns_mobile }}-col-tablet-down
+    grid--{{ section.settings.columns_desktop }}-col-desktop
+  "
+>
+  {%- for product in product.metafields.custom.related_products.value -%}
+    <li
+      style="padding:5px;"
+      class="grid__item"
+    >
+      {% render 'card-product-new', card_product: product, section_id: section.id %}
+    </li>
+  {%- endfor -%}
+</ul>
+
+<style>
+  .hidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+    white-space: nowrap;
+  }
+
+  .pagination li {
+    display: inline;
+    margin: 0 5px;
+    padding: 6px 10px;
+    border-radius: 5px;
+    background-color: rgba(217, 217, 217, 0.49);
+  }
+
+  .nav-btn {
+    width: 70px;
+  }
+</style>
