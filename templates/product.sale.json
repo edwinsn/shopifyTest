@@ -1,11 +1,18 @@
 {
-    "name": "product-on-sale",
-    "sections": {
-        "main": {
-            "type": "main-product-sale"
-        }
+  "sections": {
+    "main": {
+      "type": "main-product-sale",
+      "settings": {
+      }
     },
-    "order": [
-        "main"
-    ]
+    "upsell": {
+      "type": "upsell",
+      "settings": {
+      }
+    }
+  },
+  "order": [
+    "main",
+    "upsell"
+  ]
 }

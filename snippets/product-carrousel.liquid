@@ -1,47 +1,87 @@
 <script defer src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
-
-<section>
-  <div class="splide" aria-label="Splide Basic HTML Example">
-    <div class="splide__track">
-      <ul class="splide__list">
-        {% for image in product.media %}
-          <li class="splide__slide">
-            <img
-              class="product-image"
-              src="{{ image | image_url: width: 533 }}"
-              alt=""
-              class="motion-reduce"
-              loading="lazy"
-              width="{{ image.width }}"
-              height="{{ image.height }}"
-            >
-          </li>
-        {% endfor %}
-      </ul>
-    </div>
+<div id="product-media-container">
+  <div id="product-media-tab-selector">
+    <button onclick="focusImages()">Imagenes</button>
+    <button onclick="focusVideo()">Video</button>
   </div>
-  <ul class="flex">
-    {% for image in product.media %}
-      <li class="splide__slide">
-        <img
-          class="product-image-thumbnail"
-          src="{{ image | image_url: width: 533 }}"
-          alt=""
-          class="motion-reduce"
-          loading="lazy"
-          width="{{ 80 }}"
-          height="{{ 80 }}"
-          onclick="moveCarrrousel({{ forloop.index }})"
-          style="border: 1px solid black;"
-        >
-      </li>
-    {% endfor %}
-  </ul>
-</section>
+  <section id="images-tab">
+    <div class="splide" aria-label="Splide Basic HTML Example">
+      <div class="splide__track">
+        <ul class="splide__list">
+          {% for image in product.media %}
+            <li class="splide__slide">
+              <img
+                class="product-image"
+                src="{{ image | image_url: width: 533 }}"
+                alt=""
+                class="motion-reduce"
+                loading="lazy"
+                width="{{ image.width }}"
+                height="{{ image.height }}"
+              >
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    <ul class="flex">
+      {% for image in product.media %}
+        <li class="splide__slide">
+          <img
+            class="product-image-thumbnail"
+            src="{{ image | image_url: width: 533 }}"
+            alt=""
+            class="motion-reduce"
+            loading="lazy"
+            width="{{ 80 }}"
+            height="{{ 80 }}"
+            onclick="moveCarrrousel({{ forloop.index }})"
+            style="border: 1px solid black;"
+          >
+        </li>
+      {% endfor %}
+    </ul>
+  </section>
+  <iframe
+    id="video-tab"
+    class="hidden"
+    width="560"
+    height="315"
+    src="{{ product.metafields.custom.product_video }}"
+    title="YouTube video player"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    allowfullscreen
+  ></iframe>
+</div>
 <style type="text/css">
+  #product-media-tab-selector {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 8px;
+    background-color: #e4e3e7;
+    border-radius: 10px;
+    width: 11em;
+    margin: 0 auto;
+  }
+
+  #product-media-tab-selector > * {
+    padding: 5px 10px;
+    background-color: white;
+    cursor: pointer;
+    border-radius: 10px;
+    border: none;
+  }
+
+  #images-tab {
+    margin: 25px 0 0 0;
+  }
+
   .product-image {
     width: 100%;
+    object-fit: contain;
   }
   .splide__slide {
     display: flex;
@@ -49,6 +89,10 @@
   }
   .product-image-thumbnail {
     margin: 10px;
+  }
+
+  .hedden {
+    display: none;
   }
 </style>
 
@@ -62,4 +106,20 @@
       splide.go(x - 1);
     };
   });
+
+  window.focusImages = () => {
+    let imagesTab = document.getElementById('images-tab');
+    imagesTab.classList.remove('hidden');
+
+    let videoTab = document.getElementById('video-tab');
+    videoTab.classList.add('hidden');
+  };
+
+  window.focusVideo = () => {
+    let imagesTab = document.getElementById('images-tab');
+    imagesTab.classList.add('hidden');
+
+    let videoTab = document.getElementById('video-tab');
+    videoTab.classList.remove('hidden');
+  };
 </script>

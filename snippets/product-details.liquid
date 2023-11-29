@@ -1,61 +1,88 @@
-<form
-  method="post"
-  action="/cart/add"
-  id="product-info-container"
-  style="text-align: left;"
->
-  <input type="hidden" name="id" value="{{ product.variants.first.id }}">
-  <div class="flex gap-5">
-    <h2 id="price" class="">
-      {{ product.price | money }}
-    </h2>
-    <h2 class="prodct-original-price">
-      {{ product.price_max | times: 1.1 | money }}
-    </h2>
-  </div>
-  <div>
-    <div>Color</div>
-
+<div>
+  <form
+    method="post"
+    action="/cart/add"
+    id="product-info-container"
+    style="text-align: left;"
+  >
+    <input id="input-variant-id" type="hidden" name="id" value="{{ product.variants.first.id }}">
+    <h1 id="add">{{ product.metafields.custom.adds_from_manager | metafield_tag }}</h1>
     <div class="flex gap-5">
-      {%- for product in product.options_with_values -%}
-        {% if product.name == 'Color' %}
-          {% assign defaultColor = product.values[0] %}
-          {%- for value in product.values -%}
-            {% render 'color', color: value, defaultColor: defaultColor %}
-          {%- endfor %}
-        {% endif %}
-      {%- endfor %}
+      <h2 id="price" class="">
+        {{ product.price | money }}
+      </h2>
+      <h2 class="prodct-original-price">
+        {{ product.price_max | times: 1.1 | money }}
+      </h2>
     </div>
+    <div>
+      <div>Color</div>
 
-    <div>Size</div>
-    <select
-      class="size-selector"
-      id="product-size-selector"
+      <div class="flex gap-5">
+        {% for product in product.options_with_values %}
+          {% if product.name == 'Color' %}
+            {% assign defaultColor = product.values[0] %}
+            {%- for value in product.values -%}
+              {% render 'color', color: value, defaultColor: defaultColor %}
+            {%- endfor %}
+          {% endif %}
+        {%- endfor %}
+      </div>
+
+      <div>Size</div>
+      <select
+        class="size-selector"
+        id="product-size-selector"
+      >
+        {%- for product in product.options_with_values -%}
+          {% if product.name == 'Size' %}
+            {% assign defaultSize = product.values[0] %}
+            {%- for value in product.values -%}
+              <option>
+                {{ value }}
+              </option>
+            {%- endfor %}
+          {% endif %}
+        {%- endfor %}
+      </select>
+    </div>
+    <div class="flex my-5 gap-3">
+      <div>
+        Size:<span id="selected-size" class="black" style="margin:0 0 0 5px;">{{ defaultSize }}</span>
+      </div>
+      <div>
+        Color:<span id="selected-color" class="black" style="margin:0 0 0 5px;">{{ defaultColor }}</span>
+      </div>
+    </div>
+    <div>Share:</div>
+    <div class="flex wrap">
+      {% for block in blocks %}
+        <a href="{{ block.settings.url }}" class="social-button">
+          <img
+            class="share-product-icons"
+            src="{{ block.settings.icon |image_url }}"
+            alt="share on social media"
+            width="{{ block.settings.icon.width }}"
+            height="{{ block.settings.icon.height }}"
+            loading="lazy"
+          >
+        </a>
+      {% endfor %}
+    </div>
+    <div>Quantity:</div>
+    <input
+      min="1"
+      class="quantity"
+      type="number"
+      id="quantity"
+      name="quantity"
+      value="1"
     >
-      {%- for product in product.options_with_values -%}
-        {% if product.name == 'Size' %}
-          {% assign defaultSize = product.values[0] %}
-          {%- for value in product.values -%}
-            <option>
-              {{ value }}
-            </option>
-          {%- endfor %}
-        {% endif %}
-      {%- endfor %}
-    </select>
-  </div>
-  <div class="flex my-5 gap-3">
     <div>
-      Size:<span id="selected-size" class="black" style="margin:0 0 0 5px;">{{ defaultSize }}</span>
+      <input id="add-product-to-cart" type="submit" value="Add to cart" class="btn">
     </div>
-    <div>
-      Color:<span id="selected-color" class="black" style="margin:0 0 0 5px;">{{ defaultColor }}</span>
-    </div>
-  </div>
-  <div>Share:</div>
-  <input min="1" type="number" id="quantity" name="quantity" value="1">
-  <input id="add-product-to-cart" type="submit" value="Add to cart" class="btn">
-</form>
+  </form>
+</div>
 <style>
   #price {
     color: red;
@@ -63,10 +90,16 @@
   }
 
   #add-product-to-cart {
-    padding: 10px 20px;
+    padding: 12px 20px;
     color: white;
-    background: green;
+    background: #006d6a;
     margin: 20px 0px;
+    text-align: center;
+    width: 70%;
+  }
+
+  #quantity {
+    width: 70%;
   }
 
   .gap-5 {
@@ -76,17 +109,29 @@
     gap: 10px;
   }
 
+  .wrap {
+    flex-wrap: wrap;
+  }
+
   .prodct-original-price {
     text-decoration-line: line-through;
   }
 
   .size-selector {
     padding: 10px;
-    width: 150px;
+    width: 70%;
   }
 
   .my-5 {
     margin: 20px 0;
+  }
+
+  .share-product-icons {
+    height: 1.5em;
+    width: 1.5em;
+    border: 1px solid black;
+    border-radius: 50%;
+    margin: 0 6px;
   }
 </style>
 <style>
@@ -118,18 +163,63 @@
   }
 </style>
 <script>
-  selecSize = function (Size) {
-    var span = document.getElementById('selected-size');
-    span.innerHTML = Size;
-  };
-
   window.selecColor = function (color) {
     var span = document.getElementById('selected-color');
     span.innerHTML = color;
+    updateVariant();
+  };
+
+  selecSize = function (Size) {
+    var span = document.getElementById('selected-size');
+    span.innerHTML = Size;
   };
 
   document.getElementById('product-size-selector').addEventListener('change', function () {
     var selectedOption = this.value;
     selecSize(selectedOption);
   });
+
+  document.addEventListener('DOMContentLoaded', function () {
+    var selects = document.querySelectorAll('select');
+    selects.forEach(function (select) {
+      select.addEventListener('change', function () {
+        updateVariant();
+      });
+    });
+  });
+
+  function updateVariant() {
+    var selectedSize = document.getElementById('product-size-selector').value;
+    var selectedColor = document.getElementById('selected-color').innerHTML;
+
+    var selectedVariant = findVariantByOptions(selectedSize, selectedColor);
+
+    if (selectedVariant) {
+      // Hacer algo con la variante seleccionada, como mostrar su ID o cambiar la imagen, etc.
+      let variantIdInput = document.getElementById('input-variant-id');
+      variantIdInput.value = selectedVariant.id;
+      console.log('ID de la variante seleccionada: ' + selectedVariant.id);
+    }
+  }
+
+  function findVariantByOptions(size, color) {
+
+    var variants = [
+      {% for variant in product.variants %}
+        {
+          id: "{{variant.id }}",
+          size: "{{variant.option1}}",
+          color: "{{variant.option2}}",
+        },
+      {% endfor %}
+    ];
+
+    var foundVariant = variants.find(function (variant) {
+      return variant.size === size && variant.color === color;
+    });
+
+    console.log({foundVariant})
+
+    return foundVariant;
+  }
 </script>
